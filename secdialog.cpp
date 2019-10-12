@@ -9,6 +9,18 @@ SecDialog::SecDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    QMediaPlayer *player = new QMediaPlayer(this);
+
+    QGraphicsVideoItem *item = new QGraphicsVideoItem;
+    QGraphicsScene *scene = new QGraphicsScene(this);
+
+    player->setVideoOutput(item);
+    ui->graphicsView->scene()->addItem(item);
+    ui->graphicsView->show();
+
+    player->setMedia(QUrl("https://www.radiantmediaplayer.com/media/bbb-360p.mp4"));
+    player->play();
+
 }
 
 SecDialog::~SecDialog()

@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab_CameraView">
     <attribute name="title">
@@ -81,13 +81,13 @@
       <string>LEFT</string>
      </property>
     </widget>
-    <widget class="QGraphicsView" name="graphicsView_MainCamera">
+    <widget class="QGraphicsView" name="graphicsView">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>50</y>
-       <width>341</width>
-       <height>291</height>
+       <x>60</x>
+       <y>110</y>
+       <width>256</width>
+       <height>192</height>
       </rect>
      </property>
     </widget>

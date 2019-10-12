@@ -5,6 +5,12 @@
 
 #include <QDialog>
 
+#include <QtMultimedia/QMediaPlayer>
+#include <QtMultimedia/QMediaPlaylist>
+#include <QtMultimediaWidgets/QVideoWidget>
+#include <QtMultimediaWidgets/QGraphicsVideoItem>
+#include <QGraphicsScene>
+
 namespace Ui {
 class SecDialog;
 }
@@ -36,6 +42,12 @@ private slots:
 private:
     Ui::SecDialog *ui;
     QPixmap m_img[3];
+
+    QMediaPlayer *player;
+    QVideoWidget *videoWidget;
+    QMediaPlaylist *playlist;
+    QGraphicsVideoItem *item;
+    QGraphicsScene *scene;
 };
 
 #endif // SECDIALOG_H
