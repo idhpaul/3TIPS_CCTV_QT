@@ -20,5 +20,7 @@ You got this error like this
   and the typical cause is that the application cannot decode media.
   
   Try tod download this project
+  
   Download installer : http://forum.doom9.org/showthread.php?t=156191
+  
   And the source code : https://github.com/Nevcairiel/LAVFilters
