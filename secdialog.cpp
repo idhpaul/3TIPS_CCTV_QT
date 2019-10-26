@@ -9,6 +9,33 @@ SecDialog::SecDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    connect(ui->listWidget,SIGNAL(clicked(const QModelIndex)),this,SLOT(ItemClicked(QModelIndex)));
+
+    // Init DB
+    SecDialog::InitDB();
+
+    // Connect Camera for ip
+    SecDialog::ConnectCamera();
+
+    // Play Camera
+    player = new QMediaPlayer(this);
+    videoWidget = new QVideoWidget(this);
+
+    player->setVideoOutput(videoWidget);
+    ui->graphicsView->setViewport(videoWidget);
+
+    player->setMedia(QUrl("http://121.172.87.147:8090/?action=stream"));
+    player->play();
+
+}
+
+SecDialog::~SecDialog()
+{
+    delete ui;
+}
+
+void SecDialog::InitDB()
+{
     qDebug() << "Driver List :  " << QSqlDatabase::drivers();
 
     db = QSqlDatabase::addDatabase("QMYSQL");
@@ -40,100 +67,44 @@ SecDialog::SecDialog(QWidget *parent) :
         i_db_RC_NO = query1.value(0).toInt();
         qDebug() << i_db_RC_NO;
     }
-
-    player = new QMediaPlayer(this);
-    videoWidget = new QVideoWidget(this);
-
-    player->setVideoOutput(videoWidget);
-    ui->graphicsView->setViewport(videoWidget);
-
-
-    player->setMedia(QUrl("https://www.radiantmediaplayer.com/media/bbb-360p.mp4"));
-    player->play();
-
 }
 
-SecDialog::~SecDialog()
+void SecDialog::ConnectCamera()
 {
-    delete ui;
+    //m_Socket.connectToHost(QHostAddress(s_db_CameraIP), 9000);
+    m_Socket.connectToHost(QHostAddress("121.172.87.147"), 9000);
+
+    //connect(&m_Socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(error()));
+}
+
+void SecDialog::error(){
+    //QMessageBox::information(this, "DB", "DB open OK");
+    //ui->textEdit->setText(tcpSocket.errorString());
 }
 
 void SecDialog::on_Button_PTZ_UP_clicked()
 {
-    QMessageBox::information(this, "PTZ UP", "TODO: implement PTZ UP button ");
+    //QMessageBox::information(this, "PTZ UP", "TODO: implement PTZ UP button ");
+    m_Socket.write("u");
 }
 
 void SecDialog::on_Button_PTZ_DOWN_clicked()
 {
-    QMessageBox::information(this, "PTZ DOWN", "TODO: implement PTZ DOWN button ");
+    //QMessageBox::information(this, "PTZ DOWN", "TODO: implement PTZ DOWN button ");
+    m_Socket.write("d");
 }
 
 void SecDialog::on_Button_PTZ_RIGHT_clicked()
 {
-    QMessageBox::information(this, "PTZ RIGHT", "TODO: implement PTZ RIGHT button ");
+    //QMessageBox::information(this, "PTZ RIGHT", "TODO: implement PTZ RIGHT button ");
+    m_Socket.write("r");
 }
 
 void SecDialog::on_Button_PTZ_LEFT_clicked()
 {
-    QMessageBox::information(this, "PTZ LEFT", "TODO: implement PTZ LEFT button ");
+    //QMessageBox::information(this, "PTZ LEFT", "TODO: implement PTZ LEFT button ");
+    m_Socket.write("l");
 }
-
-//void SecDialog::on_pushButton_clicked()
-//{
-//    QString s_db_rc_url;
-
-//    QSqlQuery query1;
-//    query1.exec("select rc_url from capturetable where RC_NO= "+QString::number(i_db_RC_NO)+" order by S_no desc");
-//    if (query1.next()) {
-//        s_db_rc_url = query1.value(0).toString();
-//        qDebug() << s_db_rc_url;
-//    }
-
-
-//    QSslSocket::sslLibraryBuildVersionString();
-//    QNetworkAccessManager *nam = new QNetworkAccessManager(this);
-//    connect(nam, &QNetworkAccessManager::finished, this, &SecDialog::downloadFinished);
-//    const QUrl url = QUrl(s_db_rc_url);
-//    QNetworkRequest request(url);
-//    nam->get(request);
-//}
-
-//void SecDialog::on_pushButton_2_clicked()
-//{
-//    QString s_db_rc_url;
-
-//    QSqlQuery query1;
-//    query1.exec("select rc_url from capturetable where RC_NO= "+QString::number(i_db_RC_NO)+" order by S_no desc");
-//    if (query1.next()) {
-//        s_db_rc_url = query1.value(0).toString();
-//        qDebug() << s_db_rc_url;
-//    }
-
-
-//    QSslSocket::sslLibraryBuildVersionString();
-//    QNetworkAccessManager *nam = new QNetworkAccessManager(this);
-//    connect(nam, &QNetworkAccessManager::finished, this, &SecDialog::downloadFinished);
-//    const QUrl url = QUrl(s_db_rc_url);
-//    QNetworkRequest request(url);
-//    nam->get(request);
-//}
-
-//void SecDialog::on_pushButton_3_clicked()
-//{
-//    QSslSocket::sslLibraryBuildVersionString();
-//    QNetworkAccessManager *nam = new QNetworkAccessManager(this);
-//    connect(nam, &QNetworkAccessManager::finished, this, &SecDialog::downloadFinished);
-//    const QUrl url = QUrl("https://pngimage.net/wp-content/uploads/2018/06/hd-720p-logo-png.png");
-//    QNetworkRequest request(url);
-//    nam->get(request);
-//}
-
-//void SecDialog::downloadFinished(QNetworkReply *reply)
-//{
-//    QPixmap pm;
-//    pm.loadFromData(reply->readAll());
-//    ui->label_downloadimage->setPixmap(pm);
-//}
 
 void SecDialog::on_Button_DetectMode_toggled(bool checked)
 {
@@ -177,6 +148,7 @@ void SecDialog::downloadFinished2(QNetworkReply *reply)
 
 void SecDialog::on_Button_Capture_Image_clicked()
 {
+    // TODO : wait to loading _ IDH _ 191026
 
     m_imagenum = 0;
 
@@ -190,7 +162,6 @@ void SecDialog::on_Button_Capture_Image_clicked()
     while (query1.next())
     {
         s_db_rc_url = query1.value(0).toString();
-        //qDebug() << s_db_rc_url;
 
         QSslSocket::sslLibraryBuildVersionString();
         QNetworkAccessManager *nam = new QNetworkAccessManager(this);
@@ -205,6 +176,8 @@ void SecDialog::on_Button_Capture_Image_clicked()
 void SecDialog::on_Button_Crop_Image_clicked()
 {
 
+    // TODO : wait to loading _ IDH _ 191026
+
     m_imagenum = 0;
 
     ui->listWidget->setIconSize(QSize(200,200));
@@ -217,7 +190,6 @@ void SecDialog::on_Button_Crop_Image_clicked()
     while (query1.next())
     {
         s_db_rc_url = query1.value(0).toString();
-        //qDebug() << s_db_rc_url;
 
         QSslSocket::sslLibraryBuildVersionString();
         QNetworkAccessManager *nam = new QNetworkAccessManager(this);
@@ -230,3 +202,44 @@ void SecDialog::on_Button_Crop_Image_clicked()
 }
 
 
+
+void SecDialog::on_Button_Heatmap_Image_clicked()
+{
+    // TODO : wait to loading _ IDH _ 191026
+
+    m_imagenum = 0;
+
+    ui->listWidget->setIconSize(QSize(200,200));
+    ui->listWidget->clear();
+
+    QString s_db_rc_url;
+
+    QSqlQuery query1;
+    query1.exec("select rc_url from heatmap where RC_NO= "+QString::number(i_db_RC_NO)+" order by S_no desc");
+    while (query1.next())
+    {
+        s_db_rc_url = query1.value(0).toString();
+
+        QSslSocket::sslLibraryBuildVersionString();
+        QNetworkAccessManager *nam = new QNetworkAccessManager(this);
+        connect(nam, &QNetworkAccessManager::finished, this, &SecDialog::downloadFinished2);
+        const QUrl url = QUrl(s_db_rc_url);
+        QNetworkRequest request(url);
+        nam->get(request);
+    }
+}
+
+void SecDialog::on_listWidget_doubleClicked(const QModelIndex &index)
+{
+    //QIcon icon(index.data().Icon);
+
+    // TODO: size automatic and center _ IDH _ 191026
+    QSize size = {1000,800};
+    QIcon icon = qvariant_cast<QIcon>(index.data(Qt::DecorationRole));
+
+    QLabel * label_img = new QLabel (this);
+    label_img->setWindowFlags(Qt::Window);
+    label_img->setPixmap(icon.pixmap(size));
+    label_img->show();
+
+}

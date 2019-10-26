@@ -5,6 +5,9 @@
 
 #include <QDialog>
 
+#include <QTcpSocket>
+#include <QHostAddress>
+
 #include <QSql>
 #include <QSqlDatabase>
 #include <QSqlQuery>
@@ -32,6 +35,11 @@ public:
     void SecDialog::downloadFinished2(QNetworkReply *reply);
 
 private slots:
+
+    void SecDialog::InitDB();
+    void SecDialog::ConnectCamera();
+    void error();
+
     void on_Button_PTZ_UP_clicked();
     void on_Button_PTZ_DOWN_clicked();
     void on_Button_PTZ_RIGHT_clicked();
@@ -45,13 +53,16 @@ private slots:
 
     void on_Button_Capture_Image_clicked();
     void on_Button_Crop_Image_clicked();
+    void on_Button_Heatmap_Image_clicked();
 
-
+    void on_listWidget_doubleClicked(const QModelIndex &index);
 
 public:
     QString s_db_CameraIP;
     int i_db_RC_NO;
     int m_imagenum;
+
+    QTcpSocket m_Socket;   //socket
 
 private:
     Ui::SecDialog *ui;
