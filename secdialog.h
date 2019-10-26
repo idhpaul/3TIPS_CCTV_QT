@@ -5,10 +5,12 @@
 
 #include <QDialog>
 
+#include <QSql>
+#include <QSqlDatabase>
+#include <QSqlQuery>
 #include <QtMultimedia/QMediaPlayer>
-#include <QtMultimedia/QMediaPlaylist>
 #include <QtMultimediaWidgets/QVideoWidget>
-#include <QtMultimediaWidgets/QGraphicsVideoItem>
+#include <QGraphicsView>
 #include <QGraphicsScene>
 
 namespace Ui {
@@ -22,6 +24,7 @@ class SecDialog : public QDialog
 public:
     explicit SecDialog(QWidget *parent = nullptr);
     ~SecDialog();
+
     void SecDialog::downloadFinished(QNetworkReply *reply);
 
 private slots:
@@ -38,16 +41,19 @@ private slots:
     void on_pushButton_2_clicked();
 
     void on_pushButton_3_clicked();
+    void on_Button_DetectMode_toggled(bool checked);
 
+public:
+    QString s_db_CameraIP;
+    int i_db_RC_NO;
 private:
     Ui::SecDialog *ui;
-    QPixmap m_img[3];
+
+    QSqlDatabase db;
 
     QMediaPlayer *player;
     QVideoWidget *videoWidget;
-    QMediaPlaylist *playlist;
-    QGraphicsVideoItem *item;
-    QGraphicsScene *scene;
+
 };
 
 #endif // SECDIALOG_H

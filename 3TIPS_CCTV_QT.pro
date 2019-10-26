@@ -1,4 +1,4 @@
-QT       += core gui network multimedia multimediawidgets
+QT       += core gui network multimedia multimediawidgets sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -6,8 +6,11 @@ CONFIG += c++11
 
 
 win32{
-    LIBS += -L"C:\Program Files\OpenSSL-Win64\lib" -llibcrypto
-    INCLUDEPATH += C:\Program Files\OpenSSL-Win64\include
+    INCLUDEPATH += C:\Qt\Tools\OpenSSL\Win_x64\include
+    LIBS += -L"C:\Qt\Tools\OpenSSL\Win_x64\lib" -llibcrypto
+
+    INCLUDEPATH += C:\Program Files\MySQL\MySQL Server 8.0\include
+    LIBS += -L"C:\Program Files\MySQL\MySQL Server 8.0\lib" -llibmysql
 }
 
 # The following define makes your compiler emit warnings if you use

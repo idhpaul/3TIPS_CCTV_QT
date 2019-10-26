@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>677</width>
-    <height>499</height>
+    <width>863</width>
+    <height>590</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,8 +18,8 @@
     <rect>
      <x>10</x>
      <y>0</y>
-     <width>661</width>
-     <height>491</height>
+     <width>851</width>
+     <height>581</height>
     </rect>
    </property>
    <property name="currentIndex">
@@ -32,8 +32,8 @@
     <widget class="QPushButton" name="Button_PTZ_UP">
      <property name="geometry">
       <rect>
-       <x>460</x>
-       <y>110</y>
+       <x>640</x>
+       <y>170</y>
        <width>71</width>
        <height>61</height>
       </rect>
@@ -45,8 +45,8 @@
     <widget class="QPushButton" name="Button_PTZ_RIGHT">
      <property name="geometry">
       <rect>
-       <x>530</x>
-       <y>170</y>
+       <x>710</x>
+       <y>230</y>
        <width>71</width>
        <height>61</height>
       </rect>
@@ -58,8 +58,8 @@
     <widget class="QPushButton" name="Button_PTZ_DOWN">
      <property name="geometry">
       <rect>
-       <x>460</x>
-       <y>230</y>
+       <x>640</x>
+       <y>290</y>
        <width>71</width>
        <height>61</height>
       </rect>
@@ -71,8 +71,8 @@
     <widget class="QPushButton" name="Button_PTZ_LEFT">
      <property name="geometry">
       <rect>
-       <x>390</x>
-       <y>170</y>
+       <x>570</x>
+       <y>230</y>
        <width>71</width>
        <height>61</height>
       </rect>
@@ -84,11 +84,38 @@
     <widget class="QGraphicsView" name="graphicsView">
      <property name="geometry">
       <rect>
-       <x>60</x>
-       <y>110</y>
-       <width>256</width>
-       <height>192</height>
+       <x>10</x>
+       <y>50</y>
+       <width>541</width>
+       <height>461</height>
       </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Button_DetectMode">
+     <property name="geometry">
+      <rect>
+       <x>570</x>
+       <y>110</y>
+       <width>211</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Dectec Mode(OFF)</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>../../../Downloads/Toggle_grey.png</normaloff>
+       <normalon>../../../Downloads/Toggle_green.png</normalon>
+       <disabledoff>../../../Downloads/Toggle_grey.png</disabledoff>
+       <disabledon>../../../Downloads/Toggle_green.png</disabledon>
+       <activeoff>../../../Downloads/Toggle_grey.png</activeoff>
+       <activeon>../../../Downloads/Toggle_green.png</activeon>
+       <selectedoff>../../../Downloads/Toggle_grey.png</selectedoff>
+       <selectedon>../../../Downloads/Toggle_green.png</selectedon>../../../Downloads/Toggle_grey.png</iconset>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
      </property>
     </widget>
    </widget>

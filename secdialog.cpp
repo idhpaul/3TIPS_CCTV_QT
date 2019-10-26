@@ -9,14 +9,44 @@ SecDialog::SecDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QMediaPlayer *player = new QMediaPlayer(this);
+    qDebug() << "Driver List :  " << QSqlDatabase::drivers();
 
-    QGraphicsVideoItem *item = new QGraphicsVideoItem;
-    QGraphicsScene *scene = new QGraphicsScene(this);
+    db = QSqlDatabase::addDatabase("QMYSQL");
+    db.setHostName("localhost");
+    db.setPort(3306);
+    db.setUserName("root");
+    db.setPassword("root");
+    db.setDatabaseName("CCTV");
+    if(db.open())
+    {
+        //QMessageBox::information(this, "DB", "DB open OK");
+    }
+    else
+    {
+        QMessageBox::information(this, "DB", "DB open failed");
+    }
 
-    player->setVideoOutput(item);
-    ui->graphicsView->scene()->addItem(item);
-    ui->graphicsView->show();
+    //QSqlDatabase::database().transaction();
+    QSqlQuery query;
+    query.exec("select R_IP from service where C_ID = 'customer'");
+    if (query.next()) {
+        s_db_CameraIP = query.value(0).toString();
+        qDebug() << s_db_CameraIP;
+    }
+
+    QSqlQuery query1;
+    query1.exec("select RC_NO from service where R_IP = '" + s_db_CameraIP +"'");
+    if (query1.next()) {
+        i_db_RC_NO = query1.value(0).toInt();
+        qDebug() << i_db_RC_NO;
+    }
+
+    player = new QMediaPlayer(this);
+    videoWidget = new QVideoWidget(this);
+
+    player->setVideoOutput(videoWidget);
+    ui->graphicsView->setViewport(videoWidget);
+
 
     player->setMedia(QUrl("https://www.radiantmediaplayer.com/media/bbb-360p.mp4"));
     player->play();
@@ -50,20 +80,40 @@ void SecDialog::on_Button_PTZ_LEFT_clicked()
 
 void SecDialog::on_pushButton_clicked()
 {
+    QString s_db_rc_url;
+
+    QSqlQuery query1;
+    query1.exec("select rc_url from capturetable where RC_NO= "+QString::number(i_db_RC_NO)+" order by S_no desc");
+    if (query1.next()) {
+        s_db_rc_url = query1.value(0).toString();
+        qDebug() << s_db_rc_url;
+    }
+
+
     QSslSocket::sslLibraryBuildVersionString();
     QNetworkAccessManager *nam = new QNetworkAccessManager(this);
     connect(nam, &QNetworkAccessManager::finished, this, &SecDialog::downloadFinished);
-    const QUrl url = QUrl("https://smartcctvsystems.s3.amazonaws.com/vtest.avi/frame/frame_0%282019-10-09%2001%3A18%3A44%29.jpg?AWSAccessKeyId=AKIAJRMH7FS7TDMNHKHA&Signature=Kzl54xuulix5v1mUrkxYKn27%2BpY%3D&Expires=1872951527");
+    const QUrl url = QUrl(s_db_rc_url);
     QNetworkRequest request(url);
     nam->get(request);
 }
 
 void SecDialog::on_pushButton_2_clicked()
 {
+    QString s_db_rc_url;
+
+    QSqlQuery query1;
+    query1.exec("select rc_url from capturetable where RC_NO= "+QString::number(i_db_RC_NO)+" order by S_no desc");
+    if (query1.next()) {
+        s_db_rc_url = query1.value(0).toString();
+        qDebug() << s_db_rc_url;
+    }
+
+
     QSslSocket::sslLibraryBuildVersionString();
     QNetworkAccessManager *nam = new QNetworkAccessManager(this);
     connect(nam, &QNetworkAccessManager::finished, this, &SecDialog::downloadFinished);
-    const QUrl url = QUrl("https://smartcctvsystems.s3.amazonaws.com/vtest.avi/heatmap/heatmap_1%282019-10-09%2001%3A21%3A56%29.jpg?AWSAccessKeyId=AKIAJRMH7FS7TDMNHKHA&Signature=87w9StnxmNGxEYaZY7gozmRGhso%3D&Expires=1872951717");
+    const QUrl url = QUrl(s_db_rc_url);
     QNetworkRequest request(url);
     nam->get(request);
 }
@@ -73,7 +123,7 @@ void SecDialog::on_pushButton_3_clicked()
     QSslSocket::sslLibraryBuildVersionString();
     QNetworkAccessManager *nam = new QNetworkAccessManager(this);
     connect(nam, &QNetworkAccessManager::finished, this, &SecDialog::downloadFinished);
-    const QUrl url = QUrl("https://kbob.github.io/images/sample-3.jpg");
+    const QUrl url = QUrl("https://pngimage.net/wp-content/uploads/2018/06/hd-720p-logo-png.png");
     QNetworkRequest request(url);
     nam->get(request);
 }
@@ -83,4 +133,30 @@ void SecDialog::downloadFinished(QNetworkReply *reply)
     QPixmap pm;
     pm.loadFromData(reply->readAll());
     ui->label_downloadimage->setPixmap(pm);
+}
+
+void SecDialog::on_Button_DetectMode_toggled(bool checked)
+{
+    if(checked == true)
+    {
+        ui->Button_DetectMode->setText("Dectec Mode(ON)");
+        qDebug()<<"check is true off dect mode";
+//        QSqlQuery query1;
+//        query1.exec("update detect set RC_detect = 'f' where RC_NO=" + QString::number(i_db_RC_NO) + "");
+//        if (query1.next()) {
+//            i_db_RC_NO = query1.value(0).toInt();
+//            qDebug() << i_db_RC_NO;
+//        }
+    }
+    else
+    {
+        ui->Button_DetectMode->setText("Dectec Mode(OFF)");
+        qDebug()<<"check is false on dect mode";
+//        QSqlQuery query1;
+//        query1.exec("update detect set RC_detect = 't' where RC_NO=" + QString::number(i_db_RC_NO) + "");
+//        if (query1.next()) {
+//            i_db_RC_NO = query1.value(0).toInt();
+//            qDebug() << i_db_RC_NO;
+//        }
+    }
 }
