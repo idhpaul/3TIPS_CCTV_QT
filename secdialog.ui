@@ -32,7 +32,7 @@
     <widget class="QPushButton" name="Button_PTZ_UP">
      <property name="geometry">
       <rect>
-       <x>640</x>
+       <x>650</x>
        <y>170</y>
        <width>71</width>
        <height>61</height>
@@ -45,7 +45,7 @@
     <widget class="QPushButton" name="Button_PTZ_RIGHT">
      <property name="geometry">
       <rect>
-       <x>710</x>
+       <x>720</x>
        <y>230</y>
        <width>71</width>
        <height>61</height>
@@ -58,7 +58,7 @@
     <widget class="QPushButton" name="Button_PTZ_DOWN">
      <property name="geometry">
       <rect>
-       <x>640</x>
+       <x>650</x>
        <y>290</y>
        <width>71</width>
        <height>61</height>
@@ -71,7 +71,7 @@
     <widget class="QPushButton" name="Button_PTZ_LEFT">
      <property name="geometry">
       <rect>
-       <x>570</x>
+       <x>580</x>
        <y>230</y>
        <width>71</width>
        <height>61</height>
@@ -84,104 +84,135 @@
     <widget class="QGraphicsView" name="graphicsView">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>20</x>
        <y>50</y>
        <width>541</width>
        <height>461</height>
       </rect>
      </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="interactive">
+      <bool>true</bool>
+     </property>
     </widget>
     <widget class="QPushButton" name="Button_DetectMode">
      <property name="geometry">
       <rect>
-       <x>570</x>
-       <y>110</y>
-       <width>211</width>
+       <x>710</x>
+       <y>100</y>
+       <width>101</width>
        <height>23</height>
       </rect>
      </property>
      <property name="text">
-      <string>Dectec Mode(OFF)</string>
+      <string/>
      </property>
      <property name="icon">
       <iconset>
-       <normaloff>../../../Downloads/Toggle_grey.png</normaloff>
-       <normalon>../../../Downloads/Toggle_green.png</normalon>
-       <disabledoff>../../../Downloads/Toggle_grey.png</disabledoff>
-       <disabledon>../../../Downloads/Toggle_green.png</disabledon>
-       <activeoff>../../../Downloads/Toggle_grey.png</activeoff>
-       <activeon>../../../Downloads/Toggle_green.png</activeon>
-       <selectedoff>../../../Downloads/Toggle_grey.png</selectedoff>
-       <selectedon>../../../Downloads/Toggle_green.png</selectedon>../../../Downloads/Toggle_grey.png</iconset>
+       <normaloff>../../../Desktop/Checkbox_Off.png</normaloff>
+       <normalon>../../../Desktop/Checkbox_On.png</normalon>
+       <disabledoff>../../../Desktop/Checkbox_Off.png</disabledoff>
+       <disabledon>../../../Desktop/Checkbox_On.png</disabledon>
+       <activeoff>../../../Desktop/Checkbox_Off.png</activeoff>
+       <activeon>../../../Desktop/Checkbox_On.png</activeon>
+       <selectedoff>../../../Desktop/Checkbox_Off.png</selectedoff>
+       <selectedon>../../../Desktop/Checkbox_On.png</selectedon>../../../Desktop/Checkbox_Off.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>100</width>
+       <height>40</height>
+      </size>
      </property>
      <property name="checkable">
       <bool>true</bool>
      </property>
     </widget>
-   </widget>
-   <widget class="QWidget" name="tab_statistics">
-    <attribute name="title">
-     <string>Statistics</string>
-    </attribute>
-    <widget class="QGroupBox" name="groupBox">
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>590</x>
+       <y>100</y>
+       <width>81</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Dectec Mode</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>30</y>
-       <width>621</width>
-       <height>421</height>
+       <y>40</y>
+       <width>561</width>
+       <height>481</height>
       </rect>
      </property>
-     <property name="title">
-      <string>Detect Data</string>
+     <property name="text">
+      <string/>
      </property>
-     <widget class="QWidget" name="horizontalLayoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>9</x>
-        <y>29</y>
-        <width>591</width>
-        <height>371</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QLabel" name="label_downloadimage">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-         <property name="scaledContents">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
-          <widget class="QPushButton" name="pushButton">
-           <property name="text">
-            <string>image1</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_2">
-           <property name="text">
-            <string>image2</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_3">
-           <property name="text">
-            <string>image3</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
+    </widget>
+    <zorder>label_2</zorder>
+    <zorder>Button_PTZ_UP</zorder>
+    <zorder>Button_PTZ_RIGHT</zorder>
+    <zorder>Button_PTZ_DOWN</zorder>
+    <zorder>Button_PTZ_LEFT</zorder>
+    <zorder>graphicsView</zorder>
+    <zorder>Button_DetectMode</zorder>
+    <zorder>label</zorder>
+   </widget>
+   <widget class="QWidget" name="tab_ListView">
+    <attribute name="title">
+     <string>Decteced Image</string>
+    </attribute>
+    <widget class="QListWidget" name="listWidget">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>60</y>
+       <width>711</width>
+       <height>471</height>
+      </rect>
+     </property>
+     <property name="verticalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOn</enum>
+     </property>
+     <property name="resizeMode">
+      <enum>QListView::Adjust</enum>
+     </property>
+     <property name="viewMode">
+      <enum>QListView::IconMode</enum>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Button_Capture_Image">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>20</y>
+       <width>141</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Show Capture Image</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Button_Crop_Image">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>20</y>
+       <width>141</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Show Crop Image</string>
+     </property>
     </widget>
    </widget>
   </widget>

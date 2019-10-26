@@ -78,69 +78,70 @@ void SecDialog::on_Button_PTZ_LEFT_clicked()
     QMessageBox::information(this, "PTZ LEFT", "TODO: implement PTZ LEFT button ");
 }
 
-void SecDialog::on_pushButton_clicked()
-{
-    QString s_db_rc_url;
+//void SecDialog::on_pushButton_clicked()
+//{
+//    QString s_db_rc_url;
 
-    QSqlQuery query1;
-    query1.exec("select rc_url from capturetable where RC_NO= "+QString::number(i_db_RC_NO)+" order by S_no desc");
-    if (query1.next()) {
-        s_db_rc_url = query1.value(0).toString();
-        qDebug() << s_db_rc_url;
-    }
-
-
-    QSslSocket::sslLibraryBuildVersionString();
-    QNetworkAccessManager *nam = new QNetworkAccessManager(this);
-    connect(nam, &QNetworkAccessManager::finished, this, &SecDialog::downloadFinished);
-    const QUrl url = QUrl(s_db_rc_url);
-    QNetworkRequest request(url);
-    nam->get(request);
-}
-
-void SecDialog::on_pushButton_2_clicked()
-{
-    QString s_db_rc_url;
-
-    QSqlQuery query1;
-    query1.exec("select rc_url from capturetable where RC_NO= "+QString::number(i_db_RC_NO)+" order by S_no desc");
-    if (query1.next()) {
-        s_db_rc_url = query1.value(0).toString();
-        qDebug() << s_db_rc_url;
-    }
+//    QSqlQuery query1;
+//    query1.exec("select rc_url from capturetable where RC_NO= "+QString::number(i_db_RC_NO)+" order by S_no desc");
+//    if (query1.next()) {
+//        s_db_rc_url = query1.value(0).toString();
+//        qDebug() << s_db_rc_url;
+//    }
 
 
-    QSslSocket::sslLibraryBuildVersionString();
-    QNetworkAccessManager *nam = new QNetworkAccessManager(this);
-    connect(nam, &QNetworkAccessManager::finished, this, &SecDialog::downloadFinished);
-    const QUrl url = QUrl(s_db_rc_url);
-    QNetworkRequest request(url);
-    nam->get(request);
-}
+//    QSslSocket::sslLibraryBuildVersionString();
+//    QNetworkAccessManager *nam = new QNetworkAccessManager(this);
+//    connect(nam, &QNetworkAccessManager::finished, this, &SecDialog::downloadFinished);
+//    const QUrl url = QUrl(s_db_rc_url);
+//    QNetworkRequest request(url);
+//    nam->get(request);
+//}
 
-void SecDialog::on_pushButton_3_clicked()
-{
-    QSslSocket::sslLibraryBuildVersionString();
-    QNetworkAccessManager *nam = new QNetworkAccessManager(this);
-    connect(nam, &QNetworkAccessManager::finished, this, &SecDialog::downloadFinished);
-    const QUrl url = QUrl("https://pngimage.net/wp-content/uploads/2018/06/hd-720p-logo-png.png");
-    QNetworkRequest request(url);
-    nam->get(request);
-}
+//void SecDialog::on_pushButton_2_clicked()
+//{
+//    QString s_db_rc_url;
 
-void SecDialog::downloadFinished(QNetworkReply *reply)
-{
-    QPixmap pm;
-    pm.loadFromData(reply->readAll());
-    ui->label_downloadimage->setPixmap(pm);
-}
+//    QSqlQuery query1;
+//    query1.exec("select rc_url from capturetable where RC_NO= "+QString::number(i_db_RC_NO)+" order by S_no desc");
+//    if (query1.next()) {
+//        s_db_rc_url = query1.value(0).toString();
+//        qDebug() << s_db_rc_url;
+//    }
+
+
+//    QSslSocket::sslLibraryBuildVersionString();
+//    QNetworkAccessManager *nam = new QNetworkAccessManager(this);
+//    connect(nam, &QNetworkAccessManager::finished, this, &SecDialog::downloadFinished);
+//    const QUrl url = QUrl(s_db_rc_url);
+//    QNetworkRequest request(url);
+//    nam->get(request);
+//}
+
+//void SecDialog::on_pushButton_3_clicked()
+//{
+//    QSslSocket::sslLibraryBuildVersionString();
+//    QNetworkAccessManager *nam = new QNetworkAccessManager(this);
+//    connect(nam, &QNetworkAccessManager::finished, this, &SecDialog::downloadFinished);
+//    const QUrl url = QUrl("https://pngimage.net/wp-content/uploads/2018/06/hd-720p-logo-png.png");
+//    QNetworkRequest request(url);
+//    nam->get(request);
+//}
+
+//void SecDialog::downloadFinished(QNetworkReply *reply)
+//{
+//    QPixmap pm;
+//    pm.loadFromData(reply->readAll());
+//    ui->label_downloadimage->setPixmap(pm);
+//}
 
 void SecDialog::on_Button_DetectMode_toggled(bool checked)
 {
     if(checked == true)
     {
-        ui->Button_DetectMode->setText("Dectec Mode(ON)");
-        qDebug()<<"check is true off dect mode";
+        qDebug()<<"Change ON";
+        ui->label_2->show();
+        ui->label_2->setStyleSheet("QLabel { background-color : red; }");
 //        QSqlQuery query1;
 //        query1.exec("update detect set RC_detect = 'f' where RC_NO=" + QString::number(i_db_RC_NO) + "");
 //        if (query1.next()) {
@@ -150,8 +151,8 @@ void SecDialog::on_Button_DetectMode_toggled(bool checked)
     }
     else
     {
-        ui->Button_DetectMode->setText("Dectec Mode(OFF)");
-        qDebug()<<"check is false on dect mode";
+        qDebug()<<"Change OFF";
+        ui->label_2->hide();
 //        QSqlQuery query1;
 //        query1.exec("update detect set RC_detect = 't' where RC_NO=" + QString::number(i_db_RC_NO) + "");
 //        if (query1.next()) {
@@ -160,3 +161,72 @@ void SecDialog::on_Button_DetectMode_toggled(bool checked)
 //        }
     }
 }
+
+void SecDialog::downloadFinished2(QNetworkReply *reply)
+{
+    m_imagenum++;
+
+    QString title = "Image" + QString::number(m_imagenum);
+
+    QPixmap pm;
+    pm.loadFromData(reply->readAll());
+
+    ui->listWidget->addItem(new QListWidgetItem(QIcon(pm),title));
+}
+
+
+void SecDialog::on_Button_Capture_Image_clicked()
+{
+
+    m_imagenum = 0;
+
+    ui->listWidget->setIconSize(QSize(200,200));
+    ui->listWidget->clear();
+
+    QString s_db_rc_url;
+
+    QSqlQuery query1;
+    query1.exec("select rc_url from capturetable where RC_NO= "+QString::number(i_db_RC_NO)+" order by S_no desc");
+    while (query1.next())
+    {
+        s_db_rc_url = query1.value(0).toString();
+        //qDebug() << s_db_rc_url;
+
+        QSslSocket::sslLibraryBuildVersionString();
+        QNetworkAccessManager *nam = new QNetworkAccessManager(this);
+        connect(nam, &QNetworkAccessManager::finished, this, &SecDialog::downloadFinished2);
+        const QUrl url = QUrl(s_db_rc_url);
+        QNetworkRequest request(url);
+        nam->get(request);
+    }
+
+}
+
+void SecDialog::on_Button_Crop_Image_clicked()
+{
+
+    m_imagenum = 0;
+
+    ui->listWidget->setIconSize(QSize(200,200));
+    ui->listWidget->clear();
+
+    QString s_db_rc_url;
+
+    QSqlQuery query1;
+    query1.exec("select rc_url from crop where RC_NO= "+QString::number(i_db_RC_NO)+" order by S_no desc");
+    while (query1.next())
+    {
+        s_db_rc_url = query1.value(0).toString();
+        //qDebug() << s_db_rc_url;
+
+        QSslSocket::sslLibraryBuildVersionString();
+        QNetworkAccessManager *nam = new QNetworkAccessManager(this);
+        connect(nam, &QNetworkAccessManager::finished, this, &SecDialog::downloadFinished2);
+        const QUrl url = QUrl(s_db_rc_url);
+        QNetworkRequest request(url);
+        nam->get(request);
+    }
+
+}
+
+
