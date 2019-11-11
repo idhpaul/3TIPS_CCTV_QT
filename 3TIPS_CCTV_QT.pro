@@ -4,6 +4,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
 
+RC_FILE = icon.rc
 
 win32{
     INCLUDEPATH += C:\Qt\Tools\OpenSSL\Win_x64\include

@@ -27,10 +27,10 @@ void MainWindow::on_LoginButton_clicked()
 
     if(username ==  "admin" && password == "admin") {
         QMessageBox::information(this, "Login", "Username and password is correct");
-        hide();
 
         secDialog = new SecDialog(this);
         secDialog->show();
+        hide();
     }
     else {
         QMessageBox::warning(this,"Login", "Username and password is not correct");

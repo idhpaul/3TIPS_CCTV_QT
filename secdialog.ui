@@ -17,6 +17,9 @@
    <iconset resource="CCTV_Resource.qrc">
     <normaloff>:/icon/icon/logo2.ico</normaloff>:/icon/icon/logo2.ico</iconset>
   </property>
+  <property name="modal">
+   <bool>false</bool>
+  </property>
   <widget class="QTabWidget" name="tabWidget">
    <property name="geometry">
     <rect>
