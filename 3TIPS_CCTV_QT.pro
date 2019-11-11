@@ -1,4 +1,4 @@
-QT       += core gui network multimedia multimediawidgets sql
+QT       += core gui network webenginewidgets multimedia multimediawidgets sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -11,6 +11,14 @@ win32{
 
     INCLUDEPATH += C:\Program Files\MySQL\MySQL Server 8.0\include
     LIBS += -L"C:\Program Files\MySQL\MySQL Server 8.0\lib" -llibmysql
+
+    LIBS += -L"C:\Qt\VLC-Qt_1.1.0_win64_msvc2015\lib" -lVLCQtCore -lVLCQtWidgets
+    INCLUDEPATH += C:\Qt\VLC-Qt_1.1.0_win64_msvc2015\include
+
+
+# Edit below for custom library location
+#LIBS       += -L"C:\Users\MSLM\Downloads\VLC-Qt_1.1.0_win64_msvc2015\lib" -lVLCQtCored -lVLCQtWidgetsd
+#INCLUDEPATH += C:\Users\MSLM\Downloads\VLC-Qt_1.1.0_win64_msvc2015\include
 }
 
 # The following define makes your compiler emit warnings if you use
@@ -30,6 +38,7 @@ SOURCES += \
     secdialog.cpp
 
 HEADERS += \
+    TEST_DEFINE.h \
     mainwindow.h \
     secdialog.h
 
@@ -44,3 +53,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     CCTV_Resource.qrc
+
+DISTFILES +=

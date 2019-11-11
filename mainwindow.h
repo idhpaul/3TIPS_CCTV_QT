@@ -17,6 +17,7 @@ public:
     ~MainWindow();
 
 private slots:
+
     void on_AccountButton_clicked();
 
     void on_LoginButton_clicked();

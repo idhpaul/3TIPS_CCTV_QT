@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="CCTV_Resource.qrc">
+    <normaloff>:/icon/icon/logo2.ico</normaloff>:/icon/icon/logo2.ico</iconset>
+  </property>
   <widget class="QTabWidget" name="tabWidget">
    <property name="geometry">
     <rect>
@@ -23,7 +27,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab_CameraView">
     <attribute name="title">
@@ -32,7 +36,7 @@
     <widget class="QPushButton" name="Button_PTZ_UP">
      <property name="geometry">
       <rect>
-       <x>650</x>
+       <x>680</x>
        <y>170</y>
        <width>71</width>
        <height>61</height>
@@ -45,7 +49,7 @@
     <widget class="QPushButton" name="Button_PTZ_RIGHT">
      <property name="geometry">
       <rect>
-       <x>720</x>
+       <x>750</x>
        <y>230</y>
        <width>71</width>
        <height>61</height>
@@ -58,7 +62,7 @@
     <widget class="QPushButton" name="Button_PTZ_DOWN">
      <property name="geometry">
       <rect>
-       <x>650</x>
+       <x>680</x>
        <y>290</y>
        <width>71</width>
        <height>61</height>
@@ -71,7 +75,7 @@
     <widget class="QPushButton" name="Button_PTZ_LEFT">
      <property name="geometry">
       <rect>
-       <x>580</x>
+       <x>610</x>
        <y>230</y>
        <width>71</width>
        <height>61</height>
@@ -79,22 +83,6 @@
      </property>
      <property name="text">
       <string>LEFT</string>
-     </property>
-    </widget>
-    <widget class="QGraphicsView" name="graphicsView">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>50</y>
-       <width>541</width>
-       <height>461</height>
-      </rect>
-     </property>
-     <property name="autoFillBackground">
-      <bool>false</bool>
-     </property>
-     <property name="interactive">
-      <bool>true</bool>
      </property>
     </widget>
     <widget class="QPushButton" name="Button_DetectMode">
@@ -110,15 +98,15 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset>
-       <normaloff>../../../Desktop/Checkbox_Off.png</normaloff>
-       <normalon>../../../Desktop/Checkbox_On.png</normalon>
-       <disabledoff>../../../Desktop/Checkbox_Off.png</disabledoff>
-       <disabledon>../../../Desktop/Checkbox_On.png</disabledon>
-       <activeoff>../../../Desktop/Checkbox_Off.png</activeoff>
-       <activeon>../../../Desktop/Checkbox_On.png</activeon>
-       <selectedoff>../../../Desktop/Checkbox_Off.png</selectedoff>
-       <selectedon>../../../Desktop/Checkbox_On.png</selectedon>../../../Desktop/Checkbox_Off.png</iconset>
+      <iconset resource="CCTV_Resource.qrc">
+       <normaloff>:/image/image/Checkbox_Off.png</normaloff>
+       <normalon>:/image/image/Checkbox_On.png</normalon>
+       <disabledoff>:/image/image/Checkbox_Off.png</disabledoff>
+       <disabledon>:/image/image/Checkbox_On.png</disabledon>
+       <activeoff>:/image/image/Checkbox_Off.png</activeoff>
+       <activeon>:/image/image/Checkbox_On.png</activeon>
+       <selectedoff>:/image/image/Checkbox_Off.png</selectedoff>
+       <selectedon>:/image/image/Checkbox_On.png</selectedon>:/image/image/Checkbox_Off.png</iconset>
      </property>
      <property name="iconSize">
       <size>
@@ -156,14 +144,24 @@
       <string/>
      </property>
     </widget>
+    <widget class="VlcWidgetVideo" name="vlc_widgetvideo" native="true">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>50</y>
+       <width>541</width>
+       <height>461</height>
+      </rect>
+     </property>
+    </widget>
     <zorder>label_2</zorder>
     <zorder>Button_PTZ_UP</zorder>
     <zorder>Button_PTZ_RIGHT</zorder>
     <zorder>Button_PTZ_DOWN</zorder>
     <zorder>Button_PTZ_LEFT</zorder>
-    <zorder>graphicsView</zorder>
     <zorder>Button_DetectMode</zorder>
     <zorder>label</zorder>
+    <zorder>vlc_widgetvideo</zorder>
    </widget>
    <widget class="QWidget" name="tab_ListView">
     <attribute name="title">
@@ -230,6 +228,20 @@
    </widget>
   </widget>
  </widget>
- <resources/>
+ <customwidgets>
+  <customwidget>
+   <class>VlcWidgetVideo</class>
+   <extends>QWidget</extends>
+   <header location="global">VLCQtWidgets/WidgetVideo.h</header>
+   <container>1</container>
+   <slots>
+    <signal>fullscreen()</signal>
+    <slot>toggleFullscreen()</slot>
+   </slots>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="CCTV_Resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

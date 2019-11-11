@@ -1,6 +1,7 @@
 #ifndef SECDIALOG_H
 #define SECDIALOG_H
 
+#include "TEST_DEFINE.h"
 #include "filedownloader.h"
 
 #include <QDialog>
@@ -11,13 +12,20 @@
 #include <QSql>
 #include <QSqlDatabase>
 #include <QSqlQuery>
+
+#include <QListWidgetItem>
+
+#if USE_QT
+#include <VLCQtCore/Common.h>
+#include <VLCQtCore/Instance.h>
+#include <VLCQtCore/Media.h>
+#include <VLCQtCore/MediaPlayer.h>
+#else
 #include <QtMultimedia/QMediaPlayer>
 #include <QtMultimediaWidgets/QVideoWidget>
 #include <QGraphicsView>
 #include <QGraphicsScene>
-
-#include <QMovie>
-#include <QListWidgetItem>
+#endif
 
 namespace Ui {
 class SecDialog;
@@ -38,16 +46,11 @@ private slots:
 
     void SecDialog::InitDB();
     void SecDialog::ConnectCamera();
-    void error();
 
     void on_Button_PTZ_UP_clicked();
     void on_Button_PTZ_DOWN_clicked();
     void on_Button_PTZ_RIGHT_clicked();
     void on_Button_PTZ_LEFT_clicked();
-
-//    void on_pushButton_clicked();
-//    void on_pushButton_2_clicked();
-//    void on_pushButton_3_clicked();
 
     void on_Button_DetectMode_toggled(bool checked);
 
@@ -69,8 +72,16 @@ private:
 
     QSqlDatabase db;
 
+#if USE_QT
+    VlcInstance *_instance;
+    VlcMedia *_media;
+    VlcMediaPlayer *_player;
+#else
+    Play Camera(If Use MediaPlayer class)
     QMediaPlayer *player;
     QVideoWidget *videoWidget;
+    QWebEngineView *m_view;
+#endif
 
 };
 

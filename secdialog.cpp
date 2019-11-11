@@ -1,6 +1,8 @@
 #include "secdialog.h"
 #include "ui_secdialog.h"
 
+#include "TEST_DEFINE.h"
+
 #include <QMessageBox>
 
 SecDialog::SecDialog(QWidget *parent) :
@@ -12,20 +14,33 @@ SecDialog::SecDialog(QWidget *parent) :
     connect(ui->listWidget,SIGNAL(clicked(const QModelIndex)),this,SLOT(ItemClicked(QModelIndex)));
 
     // Init DB
-    SecDialog::InitDB();
+    //SecDialog::InitDB();
 
     // Connect Camera for ip
-    SecDialog::ConnectCamera();
+    //SecDialog::ConnectCamera();
 
-    // Play Camera
-    player = new QMediaPlayer(this);
+#if USE_QT
+
+    _instance = new VlcInstance(VlcCommon::args(), this);
+    _player = new VlcMediaPlayer(_instance);
+    _player->setVideoWidget(ui->vlc_widgetvideo);
+
+    ui->vlc_widgetvideo->setMediaPlayer(_player);
+    _media = new VlcMedia("http://121.172.87.147:8090/?action=stream", _instance);
+
+    _player->open(_media);
+
+#else
+    // Play Camera(If Use MediaPlayer class)
+    player = new QMediaPlayer(this,QMediaPlayer::LowLatency);
     videoWidget = new QVideoWidget(this);
-
     player->setVideoOutput(videoWidget);
     ui->graphicsView->setViewport(videoWidget);
-
     player->setMedia(QUrl("http://121.172.87.147:8090/?action=stream"));
+    player->setMedia(QUrl("https://www.radiantmediaplayer.com/media/bbb-360p.mp4"));
     player->play();
+#endif
+
 
 }
 
@@ -75,11 +90,6 @@ void SecDialog::ConnectCamera()
     m_Socket.connectToHost(QHostAddress("121.172.87.147"), 9000);
 
     //connect(&m_Socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(error()));
-}
-
-void SecDialog::error(){
-    //QMessageBox::information(this, "DB", "DB open OK");
-    //ui->textEdit->setText(tcpSocket.errorString());
 }
 
 void SecDialog::on_Button_PTZ_UP_clicked()

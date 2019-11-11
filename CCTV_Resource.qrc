@@ -4,4 +4,7 @@
         <file>image/Checkbox_On.png</file>
         <file>image/Checkbox_Off.png</file>
     </qresource>
+    <qresource prefix="/icon">
+        <file>icon/logo2.ico</file>
+    </qresource>
 </RCC>
