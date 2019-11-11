@@ -58,3 +58,13 @@ You got this error like this
 
   And the source code : https://github.com/Nevcairiel/LAVFilters
 
+------
+
+## How to make exe release file
+
+1. build project at QT creator for release
+2. goto release folder
+3. make dirctory like '/windeployqt'
+4. open qt terminal like 'QT 5.12.5(MSVC 2017 64-bit)'(find at start menu or search at system)
+5. run this "windeployqt C:\Users\MSLM\repo\QT_repo\build-3TIPS_CCTV_QT-Desktop_Qt_5_12_5_MSVC2017_64bit-Release\release\windeployqt"
+6. now you can see the windeplyqt dirctory which copy dll files that include depency to run your application
